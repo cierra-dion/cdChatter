@@ -12,43 +12,43 @@
 <table class="table">
     <tr>
 
-        <td>
-            @*<img src="@item.MessageBox" height="150" alt="alternative text" />*@
-        </td>
-
         <th>
             @Html.DisplayNameFor(model => model.Photo)
         </th>
-        <th>
+
+
+        @*<th>
             @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
+        </th>*@
+
+
+        @*<th>
             @Html.DisplayNameFor(model => model.EmailConfirmed)
-        </th>
-        <th>
+        </th>*@
+        @*<th>
             @Html.DisplayNameFor(model => model.PasswordHash)
-        </th>
-        <th>
+        </th>*@
+        @*<th>
             @Html.DisplayNameFor(model => model.SecurityStamp)
-        </th>
-        <th>
+        </th>*@
+        @*<th>
             @Html.DisplayNameFor(model => model.PhoneNumber)
-        </th>
-        <th>
+        </th>*@
+        @*<th>
             @Html.DisplayNameFor(model => model.PhoneNumberConfirmed)
-        </th>
-        <th>
+        </th>*@
+        @*<th>
             @Html.DisplayNameFor(model => model.TwoFactorEnabled)
-        </th>
-        <th>
+        </th>*@
+        @*<th>
             @Html.DisplayNameFor(model => model.LockoutEndDateUtc)
-        </th>
-        <th>
+        </th>*@
+        @*<th>
             @Html.DisplayNameFor(model => model.LockoutEnabled)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.AccessFailedCount)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.UserName)
         </th>
@@ -56,26 +56,34 @@
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
+    <tr><td>
+        <img src="@item.Photo" height="150" alt="alternative text" />
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.MessageBox)
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.Photo)
         </td>
-        <td>
+
+        @*<td>
             @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
+        </td>*@
+
+
+        @*<td>
             @Html.DisplayFor(modelItem => item.EmailConfirmed)
-        </td>
-        <td>
+        </td>*@
+        @*<td>
             @Html.DisplayFor(modelItem => item.PasswordHash)
-        </td>
-        <td>
+        </td>*@
+        @*<td>
             @Html.DisplayFor(modelItem => item.SecurityStamp)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.PhoneNumber)
-        </td>
-        <td>
+        </td>*@
+        @*<td>
             @Html.DisplayFor(modelItem => item.PhoneNumberConfirmed)
         </td>
         <td>
@@ -83,13 +91,13 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.LockoutEndDateUtc)
-        </td>
-        <td>
+        </td>*@
+        @*<td>
             @Html.DisplayFor(modelItem => item.LockoutEnabled)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.AccessFailedCount)
-        </td>
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.UserName)
         </td>

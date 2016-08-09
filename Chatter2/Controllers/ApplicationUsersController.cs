@@ -17,7 +17,7 @@ namespace Chatter2.Controllers
         // GET: ApplicationUsers
         public ActionResult Index()
         {
-            return View(db.Users.ToList());
+            return View(db.Users.ToList()); //Shows whole list of users.
         }
 
         //public ActionResult FollowUser()
