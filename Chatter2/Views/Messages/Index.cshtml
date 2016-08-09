@@ -11,6 +11,11 @@
 </p>
 <table class="table">
     <tr>
+        <th>Photo</th>
+        <th>
+            @Html.DisplayNameFor(model => model.ApplicationUser.UserName)
+        </th>
+
         <th>
             @Html.DisplayNameFor(model => model.MessageBox)
         </th>
@@ -19,6 +24,13 @@
 
 @foreach (var item in Model) {
     <tr>
+
+        <td>
+            <img src="@item.MessageBox" height="150" alt="alternative text" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.MessageBox)
         </td>

@@ -13,7 +13,7 @@ namespace Chatter2.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201608051356522_initial"; }
+            get { return "201608081723407_initial"; }
         }
         
         string IMigrationMetadata.Source

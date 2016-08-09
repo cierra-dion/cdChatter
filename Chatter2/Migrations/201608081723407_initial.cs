@@ -8,33 +8,23 @@ namespace Chatter2.Migrations
         public override void Up()
         {
             CreateTable(
-                "dbo.AspNetRoles",
+                "dbo.Messages",
                 c => new
                     {
-                        Id = c.String(nullable: false, maxLength: 128),
-                        Name = c.String(nullable: false, maxLength: 256),
+                        MessageID = c.Int(nullable: false, identity: true),
+                        MessageBox = c.String(maxLength: 150),
+                        ApplicationUser_Id = c.String(maxLength: 128),
                     })
-                .PrimaryKey(t => t.Id)
-                .Index(t => t.Name, unique: true, name: "RoleNameIndex");
-            
-            CreateTable(
-                "dbo.AspNetUserRoles",
-                c => new
-                    {
-                        UserId = c.String(nullable: false, maxLength: 128),
-                        RoleId = c.String(nullable: false, maxLength: 128),
-                    })
-                .PrimaryKey(t => new { t.UserId, t.RoleId })
-                .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
-                .Index(t => t.UserId)
-                .Index(t => t.RoleId);
+                .PrimaryKey(t => t.MessageID)
+                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id)
+                .Index(t => t.ApplicationUser_Id);
             
             CreateTable(
                 "dbo.AspNetUsers",
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
+                        Photo = c.String(),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),
@@ -76,54 +66,50 @@ namespace Chatter2.Migrations
                 .Index(t => t.UserId);
             
             CreateTable(
-                "dbo.Messages",
+                "dbo.AspNetUserRoles",
                 c => new
                     {
-                        MessageID = c.Int(nullable: false, identity: true),
-                        MessageBox = c.String(maxLength: 150),
-                        ApplicationUser_Id = c.String(maxLength: 128),
+                        UserId = c.String(nullable: false, maxLength: 128),
+                        RoleId = c.String(nullable: false, maxLength: 128),
                     })
-                .PrimaryKey(t => t.MessageID)
-                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id)
-                .Index(t => t.ApplicationUser_Id);
+                .PrimaryKey(t => new { t.UserId, t.RoleId })
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
+                .Index(t => t.UserId)
+                .Index(t => t.RoleId);
             
             CreateTable(
-                "dbo.Photos",
+                "dbo.AspNetRoles",
                 c => new
                     {
-                        PhotoID = c.Int(nullable: false, identity: true),
-                        UserPhoto = c.String(),
-                        ApplicationUser_Id = c.String(maxLength: 128),
+                        Id = c.String(nullable: false, maxLength: 128),
+                        Name = c.String(nullable: false, maxLength: 256),
                     })
-                .PrimaryKey(t => t.PhotoID)
-                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id)
-                .Index(t => t.ApplicationUser_Id);
+                .PrimaryKey(t => t.Id)
+                .Index(t => t.Name, unique: true, name: "RoleNameIndex");
             
         }
         
         public override void Down()
         {
+            DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Photos", "ApplicationUser_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.Messages", "ApplicationUser_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropIndex("dbo.Photos", new[] { "ApplicationUser_Id" });
-            DropIndex("dbo.Messages", new[] { "ApplicationUser_Id" });
+            DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
+            DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
-            DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
-            DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
-            DropIndex("dbo.AspNetRoles", "RoleNameIndex");
-            DropTable("dbo.Photos");
-            DropTable("dbo.Messages");
+            DropIndex("dbo.Messages", new[] { "ApplicationUser_Id" });
+            DropTable("dbo.AspNetRoles");
+            DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
-            DropTable("dbo.AspNetUserRoles");
-            DropTable("dbo.AspNetRoles");
+            DropTable("dbo.Messages");
         }
     }
 }

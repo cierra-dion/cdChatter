@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Chatter2.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Chatter2.Controllers
 {
@@ -46,9 +48,13 @@ namespace Chatter2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "canEdit")]
+        //[Authorize(Roles = "canEdit")]
         public ActionResult Create([Bind(Include = "MessageID,MessageBox")] Message message)
         {
+            UserManager<ApplicationUser> UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+            var CurrentUser = UserManager.FindById(User.Identity.GetUserId());
+            message.ApplicationUser = CurrentUser;
+
             if (ModelState.IsValid)
             {
                 db.Messages.Add(message);

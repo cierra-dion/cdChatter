@@ -202,13 +202,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201608051356522_initial.cs" />
-    <Compile Include="Migrations\201608051356522_initial.Designer.cs">
-      <DependentUpon>201608051356522_initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608051515135_Initial2.cs" />
-    <Compile Include="Migrations\201608051515135_Initial2.Designer.cs">
-      <DependentUpon>201608051515135_Initial2.cs</DependentUpon>
+    <Compile Include="Migrations\201608081723407_initial.cs" />
+    <Compile Include="Migrations\201608081723407_initial.Designer.cs">
+      <DependentUpon>201608081723407_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -226,6 +222,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\missingpic.jpg" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -285,6 +282,7 @@
     <Content Include="Views\Messages\Details.cshtml" />
     <Content Include="Views\Messages\Edit.cshtml" />
     <Content Include="Views\Messages\Index.cshtml" />
+    <Content Include="Views\Account\SetPhoto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -298,15 +296,12 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201608051356522_initial.resx">
-      <DependentUpon>201608051356522_initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608051515135_Initial2.resx">
-      <DependentUpon>201608051515135_Initial2.cs</DependentUpon>
-    </EmbeddedResource>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Service References\" />
+    <EmbeddedResource Include="Migrations\201608081723407_initial.resx">
+      <DependentUpon>201608081723407_initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

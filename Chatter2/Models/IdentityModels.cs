@@ -20,10 +20,13 @@ namespace Chatter2.Models
         //public int MessageID { get; set; }
         //public int PhotoID { get; set; }
 
-        
+        public string Photo { get; set; }
 
         public virtual ICollection<Message> Messages { get; set; }
-        public virtual ICollection<Photo> Photos { get; set; }
+
+        //public virtual <Photo> ProfilePhoto { get; set; }
+
+        //public virtual ICollection<Photo> Photos { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

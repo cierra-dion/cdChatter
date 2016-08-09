@@ -11,6 +11,7 @@ namespace Chatter2.Models
         public int MessageID { get; set; }
         [MaxLength(150)]
         public string MessageBox { get; set; }
+        //public string MessagePhoto { get; set; }
 
         //Doesn't mean to be ICollection cuz only one to many relationship not many to many?
         public virtual ApplicationUser ApplicationUser { get; set; }

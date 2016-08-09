@@ -51,7 +51,20 @@ namespace Chatter2.Controllers
                 _userManager = value;
             }
         }
-
+        public ActionResult SetPhoto()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SetPhoto(string Photo)
+        {
+            //UserManager<ApplicationUser> UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+            var CurrentUser = UserManager.FindById(User.Identity.GetUserId());
+            CurrentUser.Photo = Photo;
+            UserManager.Update(CurrentUser);
+            return RedirectToAction("Index", "Home");
+        }
         //
         // GET: /Account/Login
         [AllowAnonymous]
