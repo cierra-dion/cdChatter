@@ -23,6 +23,10 @@ namespace Chatter2.Models
         public string Photo { get; set; }
 
         public virtual ICollection<Message> Messages { get; set; }
+        public ICollection<ApplicationUser> Followers { get; set; }
+        public ICollection<ApplicationUser> Following { get; set; }
+
+
 
         //public virtual <Photo> ProfilePhoto { get; set; }
 
@@ -39,6 +43,17 @@ namespace Chatter2.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+       
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(x => x.Followers).WithMany(x => x.Following)
+                .Map(x => x.ToTable("Followers")
+                    .MapLeftKey("UserId")
+                    .MapRightKey("FollowerId"));
+            base.OnModelCreating(modelBuilder); //Calls the original OnModelCreating
+        }
+        
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
@@ -50,5 +65,7 @@ namespace Chatter2.Models
         }
 
         public System.Data.Entity.DbSet<Chatter2.Models.Message> Messages { get; set; }
+
+        //public System.Data.Entity.DbSet<Chatter2.Models.ApplicationUser> ApplicationUsers { get; set; }
     }
 }

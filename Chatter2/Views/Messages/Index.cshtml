@@ -6,8 +6,21 @@
 
 <h2>Index</h2>
 
+
+@using (Html.BeginForm())
+{
+    //USE 'P' TAGS TO GET OUT OF RAZOR:
 <p>
-    @Html.ActionLink("Create New", "Create")
+    Find by name: @Html.TextBox("search") @*"search" is the name of the parameter, this will be sent to our controller*@
+    <input type="submit" value="look for them" /> @Html.ActionLink("All Users", "Index", "ApplicationUsers")
+</p> @*SEARCH SUBMIT BUTTON*@
+    
+        
+   
+    
+}
+<p>
+    @*@Html.ActionLink("Create New", "Create")*@
 </p>
 <table class="table">
     <tr>

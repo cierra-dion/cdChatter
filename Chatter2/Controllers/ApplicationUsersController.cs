@@ -7,122 +7,115 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Chatter2.Models;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Chatter2.Controllers
 {
-    public class MessagesController : Controller
+    public class ApplicationUsersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Messages
+        // GET: ApplicationUsers
         public ActionResult Index()
         {
-            return View(db.Messages.ToList()); //Passes every message to the view
-            //Use currentuser stuff, only passing messages that current logged in user is following
-
-            //LINQ, conditions on a set of data
+            return View(db.Users.ToList());
         }
 
-        // GET: Messages/Details/5
-        public ActionResult Details(int? id)
+        //public ActionResult FollowUser()
+        //{
+        ////    if ()
+        //}
+
+            // GET: ApplicationUsers/Details/5
+        public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Message message = db.Messages.Find(id);
-            if (message == null)
+            ApplicationUser applicationUser = db.Users.Find(id);
+            if (applicationUser == null)
             {
                 return HttpNotFound();
             }
-            return View(message);
+            return View(applicationUser);
         }
 
-        // GET: Messages/Create
+        // GET: ApplicationUsers/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Messages/Create
+        // POST: ApplicationUsers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[Authorize(Roles = "canEdit")]
-        public ActionResult Create([Bind(Include = "MessageID,MessageBox")] Message message)
+        public ActionResult Create([Bind(Include = "Id,Photo,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
         {
-            UserManager<ApplicationUser> UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
-            var CurrentUser = UserManager.FindById(User.Identity.GetUserId());
-            message.ApplicationUser = CurrentUser;
-
             if (ModelState.IsValid)
             {
-                db.Messages.Add(message);
+                db.Users.Add(applicationUser);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(message);
+            return View(applicationUser);
         }
 
-        // GET: Messages/Edit/5
-        public ActionResult Edit(int? id)
+        // GET: ApplicationUsers/Edit/5
+        public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Message message = db.Messages.Find(id);
-            if (message == null)
+            ApplicationUser applicationUser = db.Users.Find(id);
+            if (applicationUser == null)
             {
                 return HttpNotFound();
             }
-            return View(message);
+            return View(applicationUser);
         }
 
-        // POST: Messages/Edit/5
+        // POST: ApplicationUsers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "canEdit")]
-        public ActionResult Edit([Bind(Include = "MessageID,MessageBox")] Message message)
+        public ActionResult Edit([Bind(Include = "Id,Photo,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(message).State = EntityState.Modified;
+                db.Entry(applicationUser).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(message);
+            return View(applicationUser);
         }
 
-        // GET: Messages/Delete/5
-        public ActionResult Delete(int? id)
+        // GET: ApplicationUsers/Delete/5
+        public ActionResult Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Message message = db.Messages.Find(id);
-            if (message == null)
+            ApplicationUser applicationUser = db.Users.Find(id);
+            if (applicationUser == null)
             {
                 return HttpNotFound();
             }
-            return View(message);
+            return View(applicationUser);
         }
 
-        // POSsssssT: Messages/Delete/5
+        // POST: ApplicationUsers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "canEdit")]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(string id)
         {
-            Message message = db.Messages.Find(id);
-            db.Messages.Remove(message);
+            ApplicationUser applicationUser = db.Users.Find(id);
+            db.Users.Remove(applicationUser);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
